@@ -22,9 +22,9 @@ class UsersTable
                     ->label('Email')
                     ->sortable(),
 
-                // Tables\Columns\TextColumn::make('created_at')
-                //     ->label('Dibuat')
-                //     ->dateTime(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Dibuat')
+                    ->dateTime(),
             ])
             ->filters([
                 //

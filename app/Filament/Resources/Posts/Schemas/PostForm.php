@@ -10,6 +10,8 @@ use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Group;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class PostForm
@@ -18,27 +20,33 @@ class PostForm
     {
         return $schema
             ->components([
-                TextInput::make('title')
-                ->required()
-                ->minLength(5),
-                TextInput::make('slug')
-                ->required() 
-                ->unique(ignoreRecord: true),
-                Select::make('category_id')
-                    ->label('Category')
-                    ->options(
-                        \App\Models\Category::all()->pluck('name', 'id')
-                    )
-                    ->required(),
-                ColorPicker::make('color'),
-                MarkdownEditor::make('body'),
-                FileUpload::make('image')
-                    ->image()
-                    ->disk('public')
-                    ->directory('posts'),
-                TagsInput::make('tags'),
-                Checkbox::make('published'),
-                DatePicker::make('published_at'),
-            ]);
+
+                Section::make("Post Details")
+                ->schema([
+                       Group::make([
+                            TextInput::make('title'),
+                            TextInput::make('slug'),
+                            Select::make('category_id'),
+                            ColorPicker::make('color'),
+                        MarkdownEditor::make('body')
+                            ->columnSpanFull(),
+                    ])->columns(2),
+                MarkdownEditor::make('content'),
+                ])->columnSpan(2),
+                Group::make([
+                    Section::make('Image Upload')
+                        ->schema([
+                            FileUpload::make('image')
+                                ->disk('public')
+                                ->directory('post'),
+                        ]),
+                    Section::make('Meta')
+                        ->schema([
+                            TagsInput::make('tags'),
+                            Checkbox::make('published'),
+                            DatePicker::make('published_at'),
+                        ]),
+                ])->columnSpan(1)
+            ])->columns(3);
     }
 }

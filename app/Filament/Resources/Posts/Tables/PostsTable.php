@@ -9,6 +9,7 @@ use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\Tables\Columns\IconColumn;
 
 class PostsTable
 {
@@ -21,8 +22,11 @@ class PostsTable
                 TextColumn::make('slug'),
                 TextColumn::make('category.name'),
                 ColorColumn::make('color'),
+
                 ImageColumn::make('image')
                     ->disk('public'),
+                IconColumn::make('published')
+                    ->boolean(),
             ])
             ->filters([
                 //

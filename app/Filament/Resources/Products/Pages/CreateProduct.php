@@ -4,8 +4,14 @@ namespace App\Filament\Resources\Products\Pages;
 
 use App\Filament\Resources\Products\ProductResource;
 use Filament\Resources\Pages\CreateRecord;
+use Symfony\Component\CssSelector\Node\FunctionNode;
 
 class CreateProduct extends CreateRecord
 {
     protected static string $resource = ProductResource::class;
+
+    protected function getFormActions(): array
+    {
+        return [];
+    }
 }

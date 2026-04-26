@@ -22,24 +22,39 @@ class PostsTable
     {
         return $table
             ->columns([
+                TextColumn::make('id')
+                    ->label('ID')
+                    ->toggleable(),
                 //
                 TextColumn::make('title')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(),
                 TextColumn::make('slug')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(),
                 TextColumn::make('category.name')
                     ->sortable()
-                    ->searchable(),
-                ColorColumn::make('color'),
-
+                    ->searchable()
+                    ->toggleable(),
+                ColorColumn::make('color')
+                    ->toggleable(),
                 ImageColumn::make('image')
-                    ->disk('public'),
+                    ->disk('public')
+                    ->toggleable(),
                 TextColumn::make('created_at')
                     ->label('Created At')
                     ->dateTime()
                     ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('tags')
+                    ->label('Tags')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                IconColumn::make('published')
+                    ->boolean()
+                    ->label('Published')
+                    ->toggleable(),
                 // IconColumn::make('published')
                 //     ->boolean(),
             ])->defaultSort('created_at', 'asc')

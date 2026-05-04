@@ -15,8 +15,16 @@ class CategoriesTable
     {
         return $table
             ->columns([
-                TextColumn::make('name') -> label('title'),
-                // TextColumn::make('slug'),
+                TextColumn::make('name')
+                    ->label('title')
+                    ->searchable()
+                    ->toggleable(),
+                TextColumn::make('slug')
+                    ->label('title')
+                    ->searchable()
+                    ->toggleable(),
+
+
             ])
             ->filters([
                 //

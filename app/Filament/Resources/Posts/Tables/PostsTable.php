@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Posts\Tables;
 
+use App\Models\Category;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -77,6 +78,7 @@ class PostsTable
                 SelectFilter::make('category_id')
                     ->label('Select Category')
                     ->relationship('category', 'name')
+                    ->options(Category::all()->pluck("name", "id"))
                     ->preload(),
             ])
             ->recordActions([
@@ -89,7 +91,8 @@ class PostsTable
                     ->icon('heroicon-o-check-circle')
                     ->form([
                         Checkbox::make('published')
-                            ->default(fn($record): bool => $record->published),
+                            ->default(fn($record): bool => $record->published)
+                            ->required(), 
                     ])
                     ->action(function ($record, $data) {
                         $record->update([
